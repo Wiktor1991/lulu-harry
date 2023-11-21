@@ -2,6 +2,7 @@ package com.example.luluharry.controller;
 
 import com.example.luluharry.domain.Bread;
 import com.example.luluharry.services.BreadService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin("*")
 public class BreadRestController {
 
     private final BreadService breadService;

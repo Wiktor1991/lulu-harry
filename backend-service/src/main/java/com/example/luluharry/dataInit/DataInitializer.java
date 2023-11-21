@@ -28,7 +28,7 @@ public class DataInitializer {
                 .name("Harry Volkorntoast")
                 .articleNumber(64)
                 .weight(500)
-                .picture("https://shop.rewe.de/p/harry-vollkorn-toast-500g/4922506")
+                .picture("https://www.gls-eberlein.de/images/product_images/popup_images/5883_0.JPG")
                 .build();
 
         Bread annoDinkel = Bread.builder()
@@ -38,8 +38,16 @@ public class DataInitializer {
                 .picture("https://img.rewe-static.de/7899987/33083620_digital-image.png?impolicy=s-products&imwidth=1080&output-format=image/webp")
                 .build();
 
+        Bread volkorn250 = Bread.builder()
+                .name("Volkorntoast")
+                .articleNumber(63)
+                .weight(250)
+                .picture("https://img.rewe-static.de/4922239/5332540_digital-image.png?impolicy=s-products&imwidth=1080&output-format=image/webp")
+                .build();
+
         breadService.addBread(unserMildes);
         breadService.addBread(volkornToast);
         breadService.addBread(annoDinkel);
+        breadService.addBread(volkorn250);
     }
 }

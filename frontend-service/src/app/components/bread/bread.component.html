@@ -1,0 +1,38 @@
+<table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)"
+       class="mat-elevation-z8">
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="articleNumber">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by artikel">
+      Artikel Nummer
+    </th>
+    <td mat-cell *matCellDef="let bread"> {{bread.articleNumber}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
+      Name
+    </th>
+    <td mat-cell *matCellDef="let bread"> {{bread.name}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="weight">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by weight">
+      Weight
+    </th>
+    <td mat-cell *matCellDef="let bread"> {{bread.weight}} g </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="picture">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header ="Sort by bild">
+      Bild
+    </th>
+    <td mat-cell *matCellDef="let bread"><img src="{{bread.picture}}" height="60px" width="80px"> </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

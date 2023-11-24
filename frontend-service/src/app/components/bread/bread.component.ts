@@ -34,22 +34,13 @@ export class BreadComponent implements OnInit, AfterViewInit{
   })
 
 
-
-
-
   displayedColumns: string[] = ['picture', 'name', 'orders','articleNumber', 'weight'];
   dataSource = new MatTableDataSource(this.breads);
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(LiveAnnouncer)liveAnnouncer!: LiveAnnouncer
 
-
-
-
   constructor(private breadService: BreadService) {
-
-
-
   }
 
 

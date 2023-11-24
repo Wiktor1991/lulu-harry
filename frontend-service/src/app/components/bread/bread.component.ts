@@ -1,42 +1,93 @@
-import {AfterViewInit, Component, numberAttribute, OnInit, ViewChild} from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {CommonModule, getLocaleId} from '@angular/common';
 import {BreadService} from "../../services/bread/bread.service";
 import {Bread} from "../../models/Bread";
 import {MatTableDataSource, MatTableModule} from "@angular/material/table";
 import {MatSort, MatSortModule, Sort} from "@angular/material/sort";
 import {LiveAnnouncer} from "@angular/cdk/a11y";
-
-
+import { FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 @Component({
   selector: 'app-bread',
   standalone: true,
-  imports: [CommonModule, MatSortModule,MatTableModule ],
+  imports: [CommonModule, MatSortModule, MatTableModule, ReactiveFormsModule],
   templateUrl: './bread.component.html',
   styleUrl: './bread.component.css'
 })
 
 export class BreadComponent implements OnInit, AfterViewInit{
   breads: Array<Bread> = []
-
+  orders: Map<String,Number> = new Map()
   sortedData = this.breads
 
-  displayedColumns: string[] = ['picture', 'name', 'articleNumber', 'weight'];
+  id! :number;
+  value: any;
+
+  orderForm = new FormGroup({
+
+    MON: new FormControl(),
+    TUE: new FormControl(),
+    WEN: new FormControl(),
+    THU: new FormControl(),
+    FRI: new FormControl(),
+    SAT: new FormControl(),
+
+  })
+
+
+
+
+
+  displayedColumns: string[] = ['picture', 'name', 'orders','articleNumber', 'weight'];
   dataSource = new MatTableDataSource(this.breads);
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(LiveAnnouncer)liveAnnouncer!: LiveAnnouncer
 
 
+
+
   constructor(private breadService: BreadService) {
+
+
+
+  }
+
+
+  get monday(){
+    return this.orderForm.controls.MON
+  }
+  get thuesday(){
+    return this.orderForm.controls.TUE
+  }
+  get wendsday(){
+    return this.orderForm.controls.WEN
+  }
+  get thursday(){
+    return this.orderForm.controls.THU
+  }
+  get friday(){
+    return this.orderForm.controls.FRI
+  }
+  get saturday(){
+    return this.orderForm.controls.SAT
   }
 
   ngOnInit(): void {
     this.breadService
         .getAllBread()
-        .subscribe(value => {
-            console.log("Getting breads from server " +JSON.stringify(value))
-            this.dataSource.data = value
+        .subscribe(dataFromServer => {
+            console.log("Getting data from server " +JSON.stringify(dataFromServer))
+            this.dataSource.data = dataFromServer;
+
         })
+  }
+
+  updateBread(bread:Bread){
+    this.value = this.orderForm.value
+    bread.orders = this.value;
+    console.log("Chleb do aktualizacji " + JSON.stringify(bread))
+    this.breadService.updateOrders(bread).subscribe();
+    return;
   }
 
   ngAfterViewInit(): void {
@@ -44,7 +95,7 @@ export class BreadComponent implements OnInit, AfterViewInit{
 
   }
   announceSortChange(sortState: Sort) {
-    // This example uses English messages. If your application supports
+    // This example uses English messages. If yo{ur application supports
     // multiple language, you would internationalize these strings.
     // Furthermore, you can customize the message to add additional
     // details about the values being sorted.
@@ -82,6 +133,7 @@ function compare(a: number | string, b: number | string, isAsc: boolean) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 
 }
+
 
 
 

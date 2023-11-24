@@ -1,3 +1,6 @@
+
+
+
 export interface Bread{
 
   id: number
@@ -6,4 +9,6 @@ export interface Bread{
   weight: number
   stkNumber: number
   picture: string
+  orders: Map<string ,number>
+
 }

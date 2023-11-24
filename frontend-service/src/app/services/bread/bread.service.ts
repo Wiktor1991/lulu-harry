@@ -12,9 +12,13 @@ export class BreadService {
 
   }
 
-  breads = []
+
   getAllBread() :Observable<Array<Bread>>{
     return this.httpClient.get<Array<Bread>>("http://localhost:8080/api/all");
 
+  }
+
+  updateOrders(bread: Bread){
+    return this.httpClient.post<Bread>("http://localhost:8080/api/update",bread)
   }
 }
